@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "devDependencies": {
+    "medium-editor": "^5.20.0",
+    "medium-editor-insert-plugin": "^2.3.2"
+  }
+}
