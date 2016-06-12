@@ -9,24 +9,10 @@ class Publish extends Command
     protected $signature = 'weblog:publish {--config} {--views} {--assets}';
     protected $description = 'Publish various assets of the weblog package for customization.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         if ($this->option('assets')) {
+            // Storage::deleteDirectory(public_path('build/vendor/genealabs/laravel-weblog'));
             $this->call('vendor:publish', [
                 '--provider' => LaravelWeblog::class,
                 '--tag' => ['assets'],

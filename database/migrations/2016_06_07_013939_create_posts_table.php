@@ -17,8 +17,8 @@ class CreatePostsTable extends Migration
 
             $table->string('title');
             $table->string('slug');
-            $table->string('excerpt')->nullable();
-            $table->string('content')->nullable();
+            $table->text('excerpt')->nullable();
+            $table->longText('content')->nullable();
             $table->string('featured_media_url')->nullable();
             $table->timestamp('published_at')->nullable();
 

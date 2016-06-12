@@ -8,25 +8,12 @@ class Migrate extends Command
     protected $signature = 'weblog:migrate';
     protected $description = 'Run migrations for Laravel Weblog.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-        app(Kernel::class)->call('migrate');
-        app(Kernel::class)->call('migrate', [
+        $this->comment('Run application migrations, just to make sure the default migrations have been run.');
+        $this->call('migrate');
+        $this->comment('Run Laravel Weblog migrations.');
+        $this->call('migrate', [
             '--path' => 'vendor/genealabs/laravel-weblog/database/migrations',
         ]);
     }

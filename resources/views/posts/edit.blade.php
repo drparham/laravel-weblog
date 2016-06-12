@@ -41,7 +41,11 @@
                     buttonLabels: 'fontawesome',
                 });
                 $('.body-editable').mediumInsert({
-                    editor: bodyEditor
+                    editor: bodyEditor,
+                    fileUploadOptions: {
+                        url: null,
+                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                    }
                 });
 
                 setInterval(function () {

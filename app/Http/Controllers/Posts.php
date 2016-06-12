@@ -15,7 +15,7 @@ class Posts extends Controller
 
     public function index() : View
     {
-        $posts = (new PostModel)->whereNotNull('published_at')->get();
+        $posts = (new PostModel)->all();
 
         return view('genealabs-laravel-weblog::posts.index', compact('posts'));
     }
@@ -27,6 +27,10 @@ class Posts extends Controller
             'slug' => 'new-story-' . str_random(32),
             'content' => 'Tell your story ...',
         ]);
+        $post->author()->associate(auth()->user());
+        $post->save();
+        $post->title = null;
+        $post->content = null;
 
         return view('genealabs-laravel-weblog::posts.edit', compact('post'));
     }

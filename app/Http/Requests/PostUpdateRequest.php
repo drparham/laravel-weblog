@@ -19,7 +19,6 @@ class PostUpdateRequest extends Request
 
     public function process(Post $post) : Post
     {
-        \Log::debug($post);
         $post->fill($this->except('_token'));
         $post->save();
 
