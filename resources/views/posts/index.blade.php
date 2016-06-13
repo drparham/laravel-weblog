@@ -44,14 +44,7 @@
                     <h1 class="card-title {{ $post->featured_media_url ? 'm-b-0' : '' }}">
 
                         @if ($post->published_at)
-                            <button type="button" class="btn btn-link">
-                                <i class="fa fa-btn fa-2x fa-heart-o"></i>
-                            </button>
-                        @endif
-
-                        @if ($post->published_at)
                             <a href="{{ route('posts.show', $post->id) }}">
-
                         @endif
 
                         {{ $post->title }}

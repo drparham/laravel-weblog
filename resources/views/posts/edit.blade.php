@@ -42,9 +42,28 @@
                 });
                 $('.body-editable').mediumInsert({
                     editor: bodyEditor,
-                    fileUploadOptions: {
-                        url: null,
-                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                    addons: {
+                        images: {
+                            deleteMethod: 'DELETE',
+                            deleteScript: '{{ route('genealabs.laravel-weblog.images.destroy', $post->id) }}',
+                            fileDeleteOptions: {
+                                dataType: 'json',
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                }
+                            },
+                            fileUploadOptions: {
+                                url: '{{ route('genealabs.laravel-weblog.images.store') }}',
+                                type: 'POST',
+                                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                                formData: [
+                                    {
+                                        name: '_token',
+                                        value: '{{ csrf_token() }}'
+                                    }
+                                ]
+                            }
+                        }
                     }
                 });
 
