@@ -22,6 +22,7 @@
                 </p>
             </div>
             <h1 id="post-title" class="title-editable" data-placeholder="Title">{{ $post->title }}</h1>
+            <div id="post-image" class="image-editable" data-placeholder="Add a featured image ..."></div>
             <div id="post-content" class="body-editable" data-placeholder="Tell your story...">{!! $post->content !!}</div>
         </div>
     </div>
@@ -37,9 +38,22 @@
                         buttons: ['bold', 'italic', 'underline']
                     }
                 });
+                var imageEditor = new MediumEditor('.image-editable', {
+                    buttonLabels: 'fontawesome',
+                    toolbar: {
+                        buttons: []
+                    }
+                });
                 var bodyEditor = new MediumEditor('.body-editable', {
                     buttonLabels: 'fontawesome',
                 });
+                // $('#featuredImage').cropper({
+                    // aspectRatio: 1/2,
+                    // movable: false,
+                    // zoomable: false,
+                    // rotatable: false,
+                    // scalable: false
+                // });
                 $('.body-editable').mediumInsert({
                     editor: bodyEditor,
                     addons: {
@@ -66,10 +80,38 @@
                         }
                     }
                 });
+                // $('.image-editable').mediumInsert({
+                //     editor: imageEditor,
+                //     addons: {
+                //         images: {
+                //             deleteMethod: 'DELETE',
+                //             deleteScript: '{{ route('genealabs.laravel-weblog.images.destroy', $post->id) }}',
+                //             fileDeleteOptions: {
+                //                 dataType: 'json',
+                //                 data: {
+                //                     _token: '{{ csrf_token() }}'
+                //                 }
+                //             },
+                //             fileUploadOptions: {
+                //                 url: '{{ route('genealabs.laravel-weblog.images.store') }}',
+                //                 type: 'POST',
+                //                 acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                //                 formData: [
+                //                     {
+                //                         name: '_token',
+                //                         value: '{{ csrf_token() }}'
+                //                     }
+                //                 ]
+                //             }
+                //         }
+                //     }
+                // });
+
 
                 setInterval(function () {
                     var postTitle = titleEditor.serialize()['post-title']['value'];
                     var postContent = bodyEditor.serialize()['post-content']['value'];
+                    // var postImage = featuredImageEditor.serialize()['postImage']['value'];
 
                     if ((postTitle.trim() + postContent.trim() + "").length > 0) {
                         $('.saving-indicator').text('- Saving ...');

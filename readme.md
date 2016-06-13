@@ -7,16 +7,16 @@
 - [X] Create a medium-style editor.
 - [X] Add an image uploader and manage deletion.
 - [ ] Add a featured image to blog post.
+- [ ] Crop featured image to social network standard sizes.
 - [ ] Create dynamic RSS feed.
 - [ ] Create dynamic sitemap.
-- [ ] Add email subscription functionality (newsletter signup form).
 
 ### 0.2
 
 - [ ] Ability to tag posts.
 - [ ] Ability to assign a post to a category.
 - [ ] Ability to publish in the future.
-- [ ] Crop images to social network standard sizes.
+- [ ] Add email subscription functionality (newsletter signup form).
 
 ### 0.3
 

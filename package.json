@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
+    "cropper": "^2.3.2",
     "medium-editor": "^5.20.0",
     "medium-editor-insert-plugin": "^2.3.2"
   }

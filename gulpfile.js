@@ -15,9 +15,13 @@ elixir(function (mix) {
     mix.styles([
             './node_modules/medium-editor/dist/css/themes/default.min.css',
             './node_modules/medium-editor/dist/css/medium-editor.min.css',
-            './node_modules/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.min.css'
+            './node_modules/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.min.css',
+            './node_modules/cropper/dist/cropper.min.css'
         ], './public/css/app.css')
+        .browserify('app.js')
         // .scripts([
+            // './public/js/app.js',
+            // './node_modules/cropper/dist/cropper.min.js'
             // './node_modules/medium-editor/dist/js/medium-editor.min.js',
             // './node_modules/handlebars/dist/handlebars.runtime.min.js',
             // './node_modules/jquery-sortable/source/js/jquery-sortable-min.js',
@@ -26,7 +30,6 @@ elixir(function (mix) {
             // './node_modules/blueimp-file-upload/js/jquery.fileupload.js',
             // './node_modules/medium-editor-insert-plugin/dist/js/medium-editor-insert-plugin.min.js'
         // ], './public/js/app.js')
-        .browserify('app.js')
         .version([
             './public/css/app.css',
             './public/js/app.js'
