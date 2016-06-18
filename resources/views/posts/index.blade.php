@@ -41,7 +41,7 @@
                             <small class="text-muted">{{ $post->published_at ? $post->published_at->diffForHumans() : 'Draft' }} - {{ $post->readTime }} min read</small>
                         </small>
                     </p>
-                    <h1 class="card-title {{ $post->featured_media_url ? 'm-b-0' : '' }}">
+                    <h1 class="card-title {{ $post->featured_media ? 'm-b-0' : '' }}">
 
                         @if ($post->published_at)
                             <a href="{{ route('posts.show', $post->id) }}">
@@ -55,10 +55,10 @@
 
                     </h1>
 
-                @if ($post->featured_media_url)
+                @if ($post->featured_media)
                 </div>
                     <div class="embed-responsive embed-responsive-4by1">
-                        <div class="embed-responsive-item" style="background-image: url({{ $post->featured_media_url ?? '' }});"></div>
+                        <div class="embed-responsive-item" style="background-image: url({{ $post->featured_media ?? '' }});"></div>
                     </div>
                 <div class="card-block">
                 @endif

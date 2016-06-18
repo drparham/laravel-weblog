@@ -19,17 +19,17 @@ elixir(function (mix) {
             './node_modules/cropper/dist/cropper.min.css'
         ], './public/css/app.css')
         .browserify('app.js')
-        // .scripts([
-            // './public/js/app.js',
+        .scripts([
+            './public/js/app.js',
             // './node_modules/cropper/dist/cropper.min.js'
-            // './node_modules/medium-editor/dist/js/medium-editor.min.js',
-            // './node_modules/handlebars/dist/handlebars.runtime.min.js',
-            // './node_modules/jquery-sortable/source/js/jquery-sortable-min.js',
-            // './node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js',
-            // './node_modules/blueimp-file-upload/js/jquery.iframe-transport.js',
-            // './node_modules/blueimp-file-upload/js/jquery.fileupload.js',
-            // './node_modules/medium-editor-insert-plugin/dist/js/medium-editor-insert-plugin.min.js'
-        // ], './public/js/app.js')
+            './node_modules/medium-editor/dist/js/medium-editor.min.js',
+            './node_modules/handlebars/dist/handlebars.runtime.min.js',
+            './node_modules/jquery-sortable/source/js/jquery-sortable-min.js',
+            './node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js',
+            './node_modules/blueimp-file-upload/js/jquery.iframe-transport.js',
+            './node_modules/blueimp-file-upload/js/jquery.fileupload.js',
+            './node_modules/medium-editor-insert-plugin/dist/js/medium-editor-insert-plugin.min.js'
+        ], './public/js/app.js')
         .version([
             './public/css/app.css',
             './public/js/app.js'

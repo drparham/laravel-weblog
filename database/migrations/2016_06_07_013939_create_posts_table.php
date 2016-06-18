@@ -7,8 +7,6 @@ class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -19,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->text('excerpt')->nullable();
             $table->longText('content')->nullable();
-            $table->string('featured_media_url')->nullable();
+            $table->longText('featured_media')->nullable();
             $table->timestamp('published_at')->nullable();
 
             $table->integer('author_user_id')->unsigned()->nullable();
@@ -43,8 +41,6 @@ class CreatePostsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

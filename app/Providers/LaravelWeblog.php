@@ -13,7 +13,7 @@ class LaravelWeblog extends ServiceProvider
         include __DIR__ . '/../Http/routes.php';
 
         $this->publishes([
-            __DIR__ . '/../../public/build' => public_path('build/vendor/genealabs/laravel-weblog'),
+            __DIR__ . '/../../public/build' => public_path('vendor/genealabs/laravel-weblog'),
         ], 'assets');
 
         $this->publishes([

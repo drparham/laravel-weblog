@@ -1,10 +1,10 @@
-<?php namespace GeneaLabs\LaravelWeblog\Http\Controllers;
+<?php
+
+namespace GeneaLabs\LaravelWeblog\Http\Controllers;
 
 use GeneaLabs\LaravelWeblog\Post as PostModel;
 use GeneaLabs\LaravelWeblog\Http\Requests\PostUpdateRequest;
 use Illuminate\View\View;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 
 class Posts extends Controller
 {
@@ -15,16 +15,16 @@ class Posts extends Controller
 
     public function index() : View
     {
-        $posts = (new PostModel)->all();
+        $posts = (new PostModel())->all();
 
         return view('genealabs-laravel-weblog::posts.index', compact('posts'));
     }
 
     public function create() : View
     {
-        $post = (new PostModel)->create([
+        $post = (new PostModel())->create([
             'title' => 'Title ...',
-            'slug' => 'new-story-' . str_random(32),
+            'slug' => 'new-story-'.str_random(32),
             'content' => 'Tell your story ...',
         ]);
         $post->author()->associate(auth()->user());

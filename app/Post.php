@@ -1,4 +1,6 @@
-<?php namespace GeneaLabs\LaravelWeblog;
+<?php
+
+namespace GeneaLabs\LaravelWeblog;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,13 +24,13 @@ class Post extends Model
         'slug',
         'exerpt',
         'content',
-        'featured_media_url',
+        'featured_media',
     ];
 
     public function author() : BelongsTo
     {
         $userClass = config('vendor.genealabs.laravel-weblog.user-model');
-        $userPrimaryKey = (new $userClass)->getKey();
+        $userPrimaryKey = (new $userClass())->getKey();
 
         return $this->belongsTo($userClass, 'author_user_id', $userPrimaryKey);
     }
@@ -47,7 +49,7 @@ class Post extends Model
     {
         $content = $this->content;
         $words = explode(' ', $content);
-        $excerpt =  implode(' ', array_splice($words, 0, 50));
+        $excerpt = implode(' ', array_splice($words, 0, 50));
         $excerpt .= (str_word_count($content) > 50) ? '&#8230;' : '';
 
         return $this->excerpt ?? $excerpt;
