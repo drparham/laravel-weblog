@@ -37,6 +37,8 @@
     <script src="{{ elixir('js/app.js', 'vendor/genealabs/laravel-weblog') }}"></script>
 
     <script>
+        var featuredImageEditor;
+
             $(document).ready(function () {
                 var titleEditor = new MediumEditor('.title-editable', {
                     buttonLabels: 'fontawesome',
@@ -44,7 +46,7 @@
                         buttons: ['bold', 'italic', 'underline']
                     }
                 });
-                var featuredImageEditor = new MediumEditor('.image-editable', {
+                featuredImageEditor = new MediumEditor('.image-editable', {
                     buttonLabels: 'fontawesome',
                     toolbar: {
                         buttons: []
@@ -147,17 +149,34 @@
 
                 registerFeaturedImageRemoveEvent();
                 $('#post-image').trigger('DOMSubtreeModified');
+                $('#post-image').prop('contenteditable', false)
             });
 
             function registerFeaturedImageRemoveEvent()
             {
                 $('#post-image').bind('DOMSubtreeModified', function ($element) {
                     if ($('#post-image').has('figure').length > 0) {
-                        $('#post-image').parent('div.container').removeClass('container').addClass('jumbotron-fluid');
+                        stretchFeaturedImage();
+                        hideMediaInsertButtons();
                     } else {
-                        $('#post-image').parent('div.jumbotron-fluid').addClass('container').removeClass('jumbotron-fluid');
+                        constrainFeaturedImagePlaceholder();
                     }
                 });
+            }
+
+            function stretchFeaturedImage()
+            {
+                $('#post-image').parent('div.container').removeClass('container').addClass('jumbotron-fluid');
+            }
+
+            function constrainFeaturedImagePlaceholder()
+            {
+                $('#post-image').parent('div.jumbotron-fluid').addClass('container').removeClass('jumbotron-fluid');
+            }
+
+            function hideMediaInsertButtons()
+            {
+                $('.jumbotron-fluid .medium-insert-buttons').hide();
             }
     </script>
 @endsection
