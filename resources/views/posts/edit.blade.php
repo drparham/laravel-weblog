@@ -110,9 +110,6 @@
                                         value: '{{ csrf_token() }}'
                                     }
                                 ]
-                            },
-                            uploadCompleted: function ($element, data) {
-                                $('#post-image').find('img').css('width', '100%').css('height', 'auto');
                             }
                         }
                     }
@@ -150,6 +147,8 @@
                 registerFeaturedImageRemoveEvent();
                 $('#post-image').trigger('DOMSubtreeModified');
                 $('#post-image').prop('contenteditable', false)
+                $('#post-image').blur(hideMediaInsertButtons);
+                $('#post-content').blur(hideContentInsertButtons);
             });
 
             function registerFeaturedImageRemoveEvent()
@@ -167,6 +166,7 @@
             function stretchFeaturedImage()
             {
                 $('#post-image').parent('div.container').removeClass('container').addClass('jumbotron-fluid');
+                $('#post-image').find('img').css('width', '100%').css('height', 'auto');
             }
 
             function constrainFeaturedImagePlaceholder()
@@ -176,7 +176,12 @@
 
             function hideMediaInsertButtons()
             {
-                $('.jumbotron-fluid .medium-insert-buttons').hide();
+                featuredImageEditor._hideInsertButtons($('#post-image'))
+            }
+
+            function hideContentInsertButtons()
+            {
+                featuredImageEditor._hideInsertButtons($('#post-content'))
             }
     </script>
 @endsection
