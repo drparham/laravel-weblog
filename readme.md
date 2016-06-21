@@ -8,8 +8,8 @@
 - [x] Add an image uploader and manage deletion.
 - [x] Add a featured image to blog post.
 - [x] Crop featured image to social network standard sizes.
-- [ ] Create dynamic RSS feed.
-- [ ] Create dynamic sitemap.
+- [x] Create dynamic RSS feed.
+- [x] Create dynamic sitemap.
 
 ### 0.2
 

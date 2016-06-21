@@ -1,32 +1,41 @@
-<?php namespace GeneaLabs\LaravelWeblog\Providers;
+<?php
+
+namespace GeneaLabs\LaravelWeblog\Providers;
 
 use GeneaLabs\LaravelWeblog\Console\Commands\Migrate;
 use GeneaLabs\LaravelWeblog\Console\Commands\Publish;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\AggregateServiceProvider;
+use Illuminate\Foundation\AliasLoader;
+use Watson\Sitemap\Facades\Sitemap;
 
-class LaravelWeblog extends ServiceProvider
+class LaravelWeblog extends AggregateServiceProvider
 {
     protected $defer = false;
+    protected $providers = [
+        \Watson\Sitemap\SitemapServiceProvider::class,
+    ];
 
     public function boot()
     {
-        include __DIR__ . '/../Http/routes.php';
+        if (!$this->app->routesAreCached()) {
+            require __DIR__.'/../Http/routes.php';
+        }
 
         $this->publishes([
-            __DIR__ . '/../../public/build' => public_path('vendor/genealabs/laravel-weblog'),
+            __DIR__.'/../../public/build' => public_path('vendor/genealabs/laravel-weblog'),
         ], 'assets');
 
         $this->publishes([
-            __DIR__ . '/../../config/laravel-weblog.php' => config_path('vendor/genealabs/laravel-weblog.php'),
+            __DIR__.'/../../config/laravel-weblog.php' => config_path('vendor/genealabs/laravel-weblog.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/../../resources/views' => base_path('resources/views/vendor/genealabs/laravel-weblog/'),
+            __DIR__.'/../../resources/views' => base_path('resources/views/vendor/genealabs/laravel-weblog/'),
         ], 'views');
 
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'genealabs-laravel-weblog');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'genealabs-laravel-weblog');
 
-        if (! config('vendor.genealabs.laravel-weblog.user-model')) {
+        if (!config('vendor.genealabs.laravel-weblog.user-model')) {
             throw new Exception("You haven't specified a user model. Please add an entry for 'model' or 'providers.users.model' in /config/auth.php. Alternatively you may publish the configuration file ('php artisan weblog:publish --config') and specify your user model there.");
         }
 
@@ -35,9 +44,12 @@ class LaravelWeblog extends ServiceProvider
 
     public function register()
     {
+        parent::register();
+
+        AliasLoader::getInstance()->alias('sitemap', Sitemap::class);
+        $this->mergeConfigFrom(__DIR__.'/../../config/laravel-weblog.php', 'vendor.genealabs.laravel-weblog');
         $this->commands(Migrate::class);
         $this->commands(Publish::class);
-        $this->mergeConfigFrom(__DIR__ . '/../../config/laravel-weblog.php', 'vendor.genealabs.laravel-weblog');
     }
 
     public function provides() : array
