@@ -21,7 +21,7 @@ elixir(function (mix) {
         .browserify('app.js')
         .scripts([
             './public/js/app.js',
-            // './node_modules/cropper/dist/cropper.min.js'
+            './node_modules/cropper/dist/cropper.min.js',
             './node_modules/medium-editor/dist/js/medium-editor.min.js',
             './node_modules/handlebars/dist/handlebars.runtime.min.js',
             './node_modules/jquery-sortable/source/js/jquery-sortable-min.js',

@@ -1,13 +1,10 @@
-<?php namespace GeneaLabs\LaravelWeblog\Http\Controllers;
+<?php
 
-use GeneaLabs\LaravelWeblog\Post as PostModel;
+namespace GeneaLabs\LaravelWeblog\Http\Controllers;
+
 use GeneaLabs\LaravelWeblog\Http\Requests\ImageDeleteRequest;
 use GeneaLabs\LaravelWeblog\Http\Requests\ImageUploadRequest;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Collection;
+use GeneaLabs\LaravelWeblog\Http\Requests\ImageUpdateRequest;
 
 class Images extends Controller
 {
@@ -19,6 +16,13 @@ class Images extends Controller
     public function store(ImageUploadRequest $request) : string
     {
         return json_encode($request->process(), JSON_UNESCAPED_SLASHES);
+    }
+
+    public function update(ImageUpdateRequest $request)
+    {
+        $request->process();
+
+        return response('', 204);
     }
 
     public function destroy(ImageDeleteRequest $request)

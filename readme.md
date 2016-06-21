@@ -7,7 +7,7 @@
 - [x] Create a medium-style editor.
 - [x] Add an image uploader and manage deletion.
 - [x] Add a featured image to blog post.
-- [ ] Crop featured image to social network standard sizes.
+- [x] Crop featured image to social network standard sizes.
 - [ ] Create dynamic RSS feed.
 - [ ] Create dynamic sitemap.
 
@@ -16,10 +16,10 @@
 - [ ] Ability to tag posts.
 - [ ] Ability to assign a post to a category.
 - [ ] Ability to publish in the future.
-- [ ] Add email subscription functionality (newsletter signup form).
 
 ### 0.3
 
+- [ ] Add email subscription functionality (newsletter signup form).
 - [ ] Add social login options (via socialite) that only get triggered when needed.
 - [ ] Add social like button (heart) that can share the article on the liker's social networks.
 - [ ] Post to Twitter on publish (for future dates as well).
