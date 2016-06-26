@@ -2,6 +2,14 @@
 
 # Laravel Weblog
 
+## Features
+
+- Drop-in capability for any Laravel 5.2+ project with an established User model.
+- Image cropping for featured images during upload process.
+- Clean, Medium-inspired interface.
+- Dynamic RSS feed.
+- Dynamic blog sitemap generation.
+
 ## Reasoning
 
 So why create another blog package with so many others out there? After all,
@@ -13,6 +21,8 @@ So why create another blog package with so many others out there? After all,
   - Have a minimalistic interface, without cumbersome admin panels.
   - Function and feel similar to _Medium_: clean, to the point, putting content
      first.
+  - Not a static page generator. (Yes, many see that as a benefit, I haven't
+     seen it as one -- yet.)
 
 There are one or two nice packages out there, but either their code is
  unnecessarily complex, so buggy that they can't be installed, or require use of
