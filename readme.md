@@ -10,6 +10,8 @@
 - Dynamic RSS feed.
 - Dynamic blog sitemap generation.
 
+(More features planned, see `Milestones` section below.)
+
 ## Reasoning
 
 So why create another blog package with so many others out there? After all,
