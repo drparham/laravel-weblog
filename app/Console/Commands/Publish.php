@@ -12,7 +12,6 @@ class Publish extends Command
     public function handle()
     {
         if ($this->option('assets')) {
-            // Storage::deleteDirectory(public_path('build/vendor/genealabs/laravel-weblog'));
             $this->call('vendor:publish', [
                 '--provider' => LaravelWeblog::class,
                 '--tag' => ['assets'],

@@ -12,7 +12,9 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function (mix) {
-    mix.styles([
+    mix.sass('app.scss')
+        .styles([
+            './public/css/app.css',
             './node_modules/medium-editor/dist/css/themes/default.min.css',
             './node_modules/medium-editor/dist/css/medium-editor.min.css',
             './node_modules/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.min.css',

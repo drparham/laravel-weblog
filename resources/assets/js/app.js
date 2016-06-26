@@ -3,3 +3,5 @@ if (global.$ == null && window.$ == null) {
 }
 
 global.MediumEditor = require('medium-editor');
+
+require('./post-editor');

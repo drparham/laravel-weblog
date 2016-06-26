@@ -1,16 +1,7 @@
 @extends (config('vendor.genealabs.laravel-weblog.layout-view'))
 
 @section ('css')
-    <style>
-        .embed-responsive-4by1 {
-          padding-bottom: 25%;
-        }
-
-        .embed-responsive-item {
-            background-position: center center;
-            background-size: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ elixir('css/app.css', 'vendor/genealabs/laravel-weblog') }}">
 @endsection
 
 @section ('content')
@@ -24,9 +15,11 @@
                 <div class="card-block">
                     <p>
                         <small>
-                            <a href="{{ route('posts.edit', $post->id) }}" class="pull-right btn btn-link {{ $post->published_at ? 'text-muted' : '' }}">
-                                <i class="fa fa-3x fa-edit"></i>
-                            </a>
+                            @if (auth()->check())
+                                <a href="{{ route('posts.edit', $post->id) }}" class="pull-right btn btn-link {{ $post->published_at ? 'text-muted' : '' }}">
+                                    <i class="fa fa-3x fa-edit"></i>
+                                </a>
+                            @endif
 
                             @if ($post->author)
                                 <img class="img-circle pull-left m-r-1" src="{{ 'http://www.gravatar.com/avatar/' . md5($post->author->email) . '?s=48' }}">
@@ -57,9 +50,11 @@
 
                 @if ($post->featured_media)
                 </div>
-                    <div class="embed-responsive embed-responsive-4by1">
-                        <div class="embed-responsive-item" style="background-image: url({{ $post->featured_media ?? '' }});"></div>
+                <div class="featured-media embed-responsive embed-responsive-4by1">
+                    <div class="embed-responsive-item">
+                        {!! $post->featured_media ?? '' !!}
                     </div>
+                </div>
                 <div class="card-block">
                 @endif
 
