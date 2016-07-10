@@ -33,7 +33,6 @@ class Posts extends Controller
         $post->title = null;
         $post->content = null;
         $tags = $post->existingTags()->pluck('name')->map(function ($tag) {
-            dd($tag);
             $newTag = new stdClass();
             $newTag->tag = $tag;
 
