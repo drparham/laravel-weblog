@@ -16,5 +16,9 @@ class Migrate extends Command
         $this->call('migrate', [
             '--path' => 'vendor/genealabs/laravel-weblog/database/migrations',
         ]);
+        $this->comment('Run Laravel Tagging migrations.');
+        $this->call('migrate', [
+            '--path' => 'vendor/rtconner/laravel-tagging/migrations',
+        ]);
     }
 }

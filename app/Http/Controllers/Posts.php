@@ -5,6 +5,7 @@ namespace GeneaLabs\LaravelWeblog\Http\Controllers;
 use GeneaLabs\LaravelWeblog\Post as PostModel;
 use GeneaLabs\LaravelWeblog\Http\Requests\PostUpdateRequest;
 use Illuminate\View\View;
+use stdClass;
 
 class Posts extends Controller
 {
@@ -31,8 +32,15 @@ class Posts extends Controller
         $post->save();
         $post->title = null;
         $post->content = null;
+        $tags = $post->existingTags()->pluck('name')->map(function ($tag) {
+            dd($tag);
+            $newTag = new stdClass();
+            $newTag->tag = $tag;
 
-        return view('genealabs-laravel-weblog::posts.edit', compact('post'));
+            return $newTag;
+        });
+
+        return view('genealabs-laravel-weblog::posts.edit', compact('post', 'tags'));
     }
 
     public function show(PostModel $posts) : View
@@ -45,8 +53,14 @@ class Posts extends Controller
     public function edit(PostModel $posts) : View
     {
         $post = $posts;
+        $tags = $post->existingTags()->pluck('name')->map(function ($tag) {
+            $newTag = new stdClass();
+            $newTag->tag = $tag;
 
-        return view('genealabs-laravel-weblog::posts.edit', compact('post'));
+            return $newTag;
+        });
+
+        return view('genealabs-laravel-weblog::posts.edit', compact('post', 'tags'));
     }
 
     public function update(PostModel $posts, PostUpdateRequest $request) : PostModel

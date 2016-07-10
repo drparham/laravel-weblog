@@ -127,99 +127,113 @@ $(document).ready(function () {
     $('#post-image').prop('contenteditable', false);
     $('#post-image').blur(hideMediaInsertButtons);
     $('#post-content').blur(hideContentInsertButtons);
+    $('#tags').selectize({
+        delimiter: ',',
+        persist: false,
+        valueField: 'tag',
+        labelField: 'tag',
+        searchField: 'tag',
+        options: tags,
+        create: function(input) {
+            return {
+                tag: input
+            }
+        }
+    });
 
-function savePost()
-{
-    var postTitle = titleEditor.serialize()['post-title'].value;
-    var postContent = bodyEditor.serialize()['post-content'].value;
-    var postImage = featuredImageEditor.serialize()['post-image'].value;
+    function savePost()
+    {
+        var postTitle = titleEditor.serialize()['post-title'].value;
+        var postContent = bodyEditor.serialize()['post-content'].value;
+        var postImage = featuredImageEditor.serialize()['post-image'].value;
 
-    if ((postTitle.trim() + postContent.trim() + "").length > 0) {
-        $('.saving-indicator').text('- Saving ...');
+        if ((postTitle.trim() + postContent.trim() + "").length > 0) {
+            $('.saving-indicator').text('- Saving ...');
+
+            $.ajax({
+                type: 'PATCH',
+                dataType: 'json',
+                url: window.postUpdateUrl,
+                data: {
+                    _token: window.csrfToken,
+                    title: postTitle,
+                    featured_media: postImage,
+                    content: postContent,
+                    tags: $('#tags').val()
+                },
+                success: function (data) {
+                    $('.saving-indicator').text('- Saved');
+                },
+                error: function (xhr, status, error) {
+                    $('.saving-indicator').text('- Save Failed');
+                }
+            });
+        }
+    }
+
+    function registerFeaturedImageRemoveEvent()
+    {
+        $('#post-image').bind('DOMSubtreeModified', function ($element) {
+            if ($('#post-image').has('figure').length > 0) {
+                // stretchFeaturedImage();
+                hideMediaInsertButtons();
+            } else {
+                constrainFeaturedImagePlaceholder();
+            }
+
+            if ($('#post-image').has('.cropper-face button').length === 0) {
+                $('.cropper-face').html('<button type="button" class="btn btn-sm btn-primary" onclick="cropImage()"><i class="fa fa-btn fa-crop"></i> Crop</button>');
+            }
+        });
+    }
+
+    function cropImage()
+    {
+        var imageData = featuredImageCroppedCanvas.toDataURL();
+
+        $('#post-image img').cropper('destroy');
+        $('#post-image img').attr('src', imageData);
+
+        hideMediaInsertButtons();
+        stretchFeaturedImage();
 
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
-            url: window.postUpdateUrl,
+            url: window.imageUpdateUrl,
             data: {
                 _token: window.csrfToken,
-                title: postTitle,
-                featured_media: postImage,
-                content: postContent
+                image_url: featuredImageUrl,
+                image_data: imageData
             },
-            success: function (data) {
-                $('.saving-indicator').text('- Saved');
+            success: function () {
+              $('#post-image img').attr('src', featuredImageUrl);
             },
-            error: function (xhr, status, error) {
-                $('.saving-indicator').text('- Save Failed');
+            error: function () {
+              console.log('Upload error');
             }
         });
+
+        savingIsEnabled = true;
     }
-}
 
-function registerFeaturedImageRemoveEvent()
-{
-    $('#post-image').bind('DOMSubtreeModified', function ($element) {
-        if ($('#post-image').has('figure').length > 0) {
-            // stretchFeaturedImage();
-            hideMediaInsertButtons();
-        } else {
-            constrainFeaturedImagePlaceholder();
-        }
+    function stretchFeaturedImage()
+    {
+        $('#post-image').parent('div.container').removeClass('container').addClass('jumbotron-fluid');
+    }
 
-        if ($('#post-image').has('.cropper-face button').length === 0) {
-            $('.cropper-face').html('<button type="button" class="btn btn-sm btn-primary" onclick="cropImage()"><i class="fa fa-btn fa-crop"></i> Crop</button>');
-        }
-    });
-}
+    function constrainFeaturedImagePlaceholder()
+    {
+        // $('#post-image').parent('div.jumbotron-fluid').addClass('container').removeClass('jumbotron-fluid');
+    }
 
-function cropImage()
-{
-    var imageData = featuredImageCroppedCanvas.toDataURL();
+    function hideMediaInsertButtons()
+    {
+        featuredImageEditor._hideInsertButtons($('#post-image'));
+    }
 
-    $('#post-image img').cropper('destroy');
-    $('#post-image img').attr('src', imageData);
-
-    hideMediaInsertButtons();
-    stretchFeaturedImage();
-
-    $.ajax({
-        type: 'PATCH',
-        dataType: 'json',
-        url: window.imageUpdateUrl,
-        data: {
-            _token: window.csrfToken,
-            image_url: featuredImageUrl,
-            image_data: imageData
-        },
-        success: function () {
-          $('#post-image img').attr('src', featuredImageUrl);
-        },
-        error: function () {
-          console.log('Upload error');
-        }
-    });
-
-    savingIsEnabled = true;
-}
-
-function stretchFeaturedImage()
-{
-    $('#post-image').parent('div.container').removeClass('container').addClass('jumbotron-fluid');
-}
-
-function constrainFeaturedImagePlaceholder()
-{
-    // $('#post-image').parent('div.jumbotron-fluid').addClass('container').removeClass('jumbotron-fluid');
-}
-
-function hideMediaInsertButtons()
-{
-    featuredImageEditor._hideInsertButtons($('#post-image'));
-}
-
-function hideContentInsertButtons()
-{
-    featuredImageEditor._hideInsertButtons($('#post-content'));
-}
+    function hideContentInsertButtons()
+    {
+        featuredImageEditor._hideInsertButtons($('#post-content'));
+    }
 });

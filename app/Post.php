@@ -1,7 +1,6 @@
-<?php
+<?php namespace GeneaLabs\LaravelWeblog;
 
-namespace GeneaLabs\LaravelWeblog;
-
+use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Post extends Model
 {
     use SoftDeletes;
+    use Taggable;
 
     protected $appends = [
         'readTime',
@@ -33,16 +33,6 @@ class Post extends Model
         $userPrimaryKey = (new $userClass())->getKey();
 
         return $this->belongsTo($userClass, 'author_user_id', $userPrimaryKey);
-    }
-
-    public function category() : BelongsTo
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function tags() : BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class);
     }
 
     public function getExcerptAttribute() : string

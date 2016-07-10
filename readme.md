@@ -121,10 +121,11 @@ Naturally the default layout won't necessarily be completely to your liking. The
 - [x] Create dynamic sitemap.
 
 ### 0.2
-
-- [ ] Ability to tag posts.
+- [x] Ability to tag posts.
 - [ ] Ability to assign a post to a category.
 - [ ] Ability to publish in the future.
+- [ ] Format and structure codebase.
+- [ ] Implement final design tweaks.
 
 ### 0.3
 
