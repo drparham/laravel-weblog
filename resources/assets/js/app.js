@@ -1,8 +1,8 @@
-if (global.$ == null && window.$ == null) {
+// if (global.$ === undefined && window.$ === undefined) {
     global.$ = global.jQuery = require('jquery');
-}
+// }
 
 global.MediumEditor = require('medium-editor');
 
-require('./post-editor');
 require('selectize');
+require('./post-editor');

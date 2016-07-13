@@ -10,16 +10,17 @@
             <img class="img-circle pull-left m-r-2" src="{{ 'http://www.gravatar.com/avatar/' . md5(auth()->user()->email) . '?s=60' }}">
             <p class="form-inline">
                 <strong>{{ auth()->user()->name }}</strong>
-                <input type="text" id="tags" class="form-control form-control-sm pull-right" value="{{ $post->tags->implode('name', ',') }}">
+                <input type="text" id="tags" class="pull-right" value="{{ $post->tags->implode('name', ',') }}">
                 <label class="form-control-label pull-right">Tags</label>
             </p>
             <p>{{ auth()->user()->bio }}</p>
             <p class="form-inline">
                 Draft
                 <small><em class="saving-indicator text-muted"></em></small>
-                <select id="category" class="form-control form-control-sm pull-right">
-                    <option>Genealogy</option>
-                    <option>Development</option>
+                <select id="category" class="pull-right">
+                    @foreach ($post->all_categories as $category)
+                        <option{{ $category === $post->category ? ' selected="selected"' : '' }}>{{ $post->category }}</option>
+                    @endforeach
                 </select>
                 <label class="form-control-label pull-right">Category</label>
             </p>

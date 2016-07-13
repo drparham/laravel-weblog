@@ -4,6 +4,7 @@ use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 class Post extends Model
 {
@@ -25,6 +26,7 @@ class Post extends Model
         'exerpt',
         'content',
         'featured_media',
+        'category',
     ];
 
     public function author() : BelongsTo
@@ -33,6 +35,15 @@ class Post extends Model
         $userPrimaryKey = (new $userClass())->getKey();
 
         return $this->belongsTo($userClass, 'author_user_id', $userPrimaryKey);
+    }
+
+    public function getAllCategoriesAttribute() : Collection
+    {
+        $categories = $this->select('category')->distinct()->get();
+
+        // dd($categories);
+
+        return $categories;
     }
 
     public function getExcerptAttribute() : string

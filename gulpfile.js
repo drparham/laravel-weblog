@@ -18,7 +18,8 @@ elixir(function (mix) {
             './node_modules/medium-editor/dist/css/themes/default.min.css',
             './node_modules/medium-editor/dist/css/medium-editor.min.css',
             './node_modules/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.min.css',
-            './node_modules/cropper/dist/cropper.min.css'
+            './node_modules/cropper/dist/cropper.min.css',
+            './node_modules/selectize/dist/css/selectize.css'
         ], './public/css/app.css')
         .browserify('app.js')
         .scripts([

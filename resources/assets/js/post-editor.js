@@ -137,8 +137,12 @@ $(document).ready(function () {
         create: function(input) {
             return {
                 tag: input
-            }
+            };
         }
+    });
+    $('#category').selectize({
+        create: true,
+        sortField: 'text'
     });
 
     function savePost()
