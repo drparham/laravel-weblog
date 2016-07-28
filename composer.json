@@ -4,10 +4,6 @@
   "authors": [{
     "name": "Mike Bronner",
     "email": "hello@genealabs.com"
-  },
-  {
-    "name": "Dustin Parham",
-    "email": "dustin@vcto.io"
   }],
   "require": {
     "illuminate/support": "^5.2",
