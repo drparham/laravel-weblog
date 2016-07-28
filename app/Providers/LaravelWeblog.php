@@ -26,7 +26,7 @@ class LaravelWeblog extends AggregateServiceProvider
         ], 'assets');
 
         $this->publishes([
-            __DIR__.'/../../config/laravel-weblog.php' => config_path('vendor/genealabs/laravel-weblog.php'),
+            __DIR__.'/../../config/laravel-weblog.php' => config_path('laravel-weblog.php'),
         ], 'config');
 
         $this->publishes([
@@ -35,7 +35,7 @@ class LaravelWeblog extends AggregateServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'genealabs-laravel-weblog');
 
-        if (!config('vendor.genealabs.laravel-weblog.user-model')) {
+        if (!config('laravel-weblog.user-model')) {
             throw new Exception("You haven't specified a user model. Please add an entry for 'model' or 'providers.users.model' in /config/auth.php. Alternatively you may publish the configuration file ('php artisan weblog:publish --config') and specify your user model there.");
         }
 
@@ -47,7 +47,7 @@ class LaravelWeblog extends AggregateServiceProvider
         parent::register();
 
         AliasLoader::getInstance()->alias('sitemap', Sitemap::class);
-        $this->mergeConfigFrom(__DIR__.'/../../config/laravel-weblog.php', 'vendor.genealabs.laravel-weblog');
+        $this->mergeConfigFrom(__DIR__.'/../../config/laravel-weblog.php', 'laravel-weblog');
         $this->commands(Migrate::class);
         $this->commands(Publish::class);
     }
