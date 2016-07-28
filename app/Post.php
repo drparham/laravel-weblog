@@ -31,7 +31,7 @@ class Post extends Model
 
     public function author() : BelongsTo
     {
-        $userClass = config('vendor.genealabs.laravel-weblog.user-model');
+        $userClass = config('laravel-weblog.user-model');
         $userPrimaryKey = (new $userClass())->getKey();
 
         return $this->belongsTo($userClass, 'author_user_id', $userPrimaryKey);
