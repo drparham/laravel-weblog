@@ -57,20 +57,20 @@ class LaravelWeblog extends AggregateServiceProvider
         return ['genealabs-laravel-weblog'];
     }
 
-    /*
-        private function registerBladeDirective(string $formMethod, string $alias = '') : string
-        {
-            $alias = $alias ?: $formMethod;
+/*
+    private function registerBladeDirective(string $formMethod, string $alias = '') : string
+    {
+        $alias = $alias ?: $formMethod;
 
-            if (array_key_exists($alias, Blade::getCustomDirectives())) {
-                throw new Exception("Blade directive '{$alias}' is already registered.");
-            }
-
-            app('blade.compiler')->directive($alias, function ($parameters) use ($formMethod) {
-                $parameters = trim($parameters, "()");
-
-                return "<?= app('form')->{$formMethod}({$parameters}) ?>";
-            });
+        if (array_key_exists($alias, Blade::getCustomDirectives())) {
+            throw new Exception("Blade directive '{$alias}' is already registered.");
         }
-    */
+
+        app('blade.compiler')->directive($alias, function ($parameters) use ($formMethod) {
+            $parameters = trim($parameters, "()");
+
+            return "<?= app('form')->{$formMethod}({$parameters}) ?>";
+        });
+    }
+*/
 }
